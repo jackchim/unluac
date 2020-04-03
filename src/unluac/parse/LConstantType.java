@@ -26,29 +26,35 @@ class LConstantType50 extends LConstantType {
         case 0:
           System.out.println("<nil>");
           break;
-        case 1:
+        case 1 + 3:
           System.out.println("<boolean>");
           break;
-        case 3:
+        case 3 + 3:
           System.out.println("<number>");
           break;
-        case 4:
+        case 4 + 3:
           System.out.println("<string>");
+          break;
+        case 9 + 3:
+          System.out.println("<int>");
           break;
         default:
           System.out.println("illegal " + type);
           break;
       }
     }
+    // System.out.println("const type " + type +  " p=" + buffer.position());
     switch(type) {
       case 0:
         return LNil.NIL;
-      case 1:
+      case 1 + 3:
         return header.bool.parse(buffer, header);
-      case 3:
+      case 3 + 3:
         return header.number.parse(buffer, header);
-      case 4:
+      case 4 + 3:
         return header.string.parse(buffer, header);
+      case 9 + 3:
+        return header.linteger.parse(buffer, header);
       default:
         throw new IllegalStateException();
     }

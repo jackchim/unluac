@@ -39,13 +39,16 @@ class LStringType50 extends LStringType {
   @Override
   public LString parse(final ByteBuffer buffer, BHeader header) {
     BSizeT sizeT = header.sizeT.parse(buffer, header);
+    int key = 0x000000ff & (sizeT.asInt() * 13 + 55);
+
     final StringBuilder b = this.b.get();
     b.setLength(0);
     sizeT.iterate(new Runnable() {
       
       @Override
       public void run() {
-        b.append((char) (0xFF & buffer.get()));
+        char c = (char) ((buffer.get() ^ key) & 0xff);
+        b.append(c);
       }
       
     });
